@@ -1,0 +1,18 @@
+{
+  "name": "moment.picker",
+  "description": "A backbone + moment.js date picker",
+  "version": "0.0.1",
+  "homepage": "https://github.com/jonotron/moment.picker",
+  "keywords": [
+    "backbone",
+    "moment",
+    "date",
+    "picker",
+    "browser"
+  ],
+
+  "devDependencies": {
+    "grunt": "~0.3.16",
+    "grunt-jasmine-runner": "latest"
+  }
+}
