@@ -1,3 +1,4 @@
+( function() {
   var tmplHead = '<thead>'
     + '<tr>'
     + '<th colspan="2" class="nav prev-month"><i class="icon-arrow-left"></i></th>'
@@ -45,14 +46,14 @@
       if (options && _.has(options, 'date')) {
         this.updateSelectedMoment(options.date);
       } else {
-        this.updateSelectedMoment(moment());
+        this.updateSelectedMoment(moment().sod());
       }
     },
 
     render: function() {
       this.$el.html(_.template(this._tmplHead, {
         month: moment((this._activeMoment.month()+1).toString(), 'M').format('MMM'),
-        year: this._activeMoment.format("YYYY"),
+        year: this._activeMoment.format("YYYY")
       }));
 
       var self = this;
@@ -81,7 +82,7 @@
             month: m,
             year: y,
             full: mom.format('YYYY-MM-DD')
-          }
+          };
         })
         .groupBy('yearweek')
         .map(function(w) { // rekey each date in the week to day
@@ -150,3 +151,13 @@
     }
 
   });
+
+  // attach to global object
+  this.MomentPicker = MomentPicker;
+
+  if (typeof define === 'function' && define.amd) {
+    define(['backbone', 'moment'], function(Backbone, moment) {
+      return MomentPicker; 
+    }); 
+  }
+}).call(this);
