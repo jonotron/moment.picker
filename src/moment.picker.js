@@ -46,7 +46,7 @@
       if (options && _.has(options, 'date')) {
         this.updateSelectedMoment(options.date);
       } else {
-        this.updateSelectedMoment(moment().sod());
+        this.updateSelectedMoment(moment().startOf('day'));
       }
     },
 
@@ -137,6 +137,7 @@
     updateSelectedMoment: function(date) {
       var mom = moment(date);
       if (!isNaN(mom._d.getTime())) { // check for valid date. TODO: Use upcoming moment.js isValid function
+        mom.startOf('day');
         this._setSelectedMoment(mom);
         this._activeMoment = mom.clone();
         this.render();

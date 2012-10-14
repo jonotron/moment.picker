@@ -7,12 +7,20 @@ describe('moment.picker', function() {
     });
 
     it('should have a default selected day of today', function() {
-      expect(picker.getSelectedMoment()).toEqual(moment().sod()); 
+      expect(picker.getSelectedMoment()).toEqual(moment().startOf('day')); 
     });
 
-    it('should select a different day, if a moment is provided in the options', function() {
-      var picker = new MomentPicker({date: moment('Jan 1, 2000')});
-      expect(picker.getSelectedMoment()).toEqual(moment('Jan 1, 2000').sod()); 
+    describe('when providing a date', function() {
+      it('should select the provided date', function() {
+        var picker = new MomentPicker({date: moment('Jan 1, 2000')});
+        expect(picker.getSelectedMoment()).toEqual(moment('Jan 1, 2000').startOf('day')); 
+      });
+
+      it('should reset set the selected date to the start of the day', function() {
+        var picker = new MomentPicker({date: moment('2000-01-01T12:34:00')});
+        expect(picker.getSelectedMoment()).toEqual(moment('Jan 1, 2000').startOf('day'));
+      });
+    
     });
 
   });
