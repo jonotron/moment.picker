@@ -36,6 +36,7 @@ module.exports = function(grunt) {
     jasmine: {
       src: [
         'lib/jquery.js',
+        'lib/underscore.js',
         'lib/backbone.js',
         'lib/moment.js',
         'src/moment.picker.js' 
