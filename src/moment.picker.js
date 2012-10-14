@@ -1,7 +1,3 @@
-define(function(require) {
-  var Backbone = require('backbone');
-  var moment = require('moment');
-
   var tmplHead = '<thead>'
     + '<tr>'
     + '<th colspan="2" class="nav prev-month"><i class="icon-arrow-left"></i></th>'
@@ -30,7 +26,7 @@ define(function(require) {
     + '</tr>'
     ;
 
-  var Datepicker = Backbone.View.extend({
+  var MomentPicker = Backbone.View.extend({
     _tmplHead:    tmplHead,
     _tmplRow:     tmplRow,
     tagName:      'table',
@@ -154,7 +150,3 @@ define(function(require) {
     }
 
   });
-
-  return Datepicker;
-
-});
