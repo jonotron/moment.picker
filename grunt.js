@@ -41,6 +41,7 @@ module.exports = function(grunt) {
         'lib/moment.js',
         'src/moment.picker.js' 
       ],
+      helpers: 'test/helper/**/*.js',
       specs: 'test/spec/**/*.spec.js'
     },
 
