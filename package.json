@@ -1,14 +1,36 @@
 {
   "name": "moment.picker",
+  "title": "Moment Picker",
   "description": "A backbone + moment.js date picker",
   "version": "0.0.1",
-  "homepage": "https://github.com/jonotron/moment.picker",
+  "homepage": "https://github.com//jonotron/moment.picker",
+  "author": {
+    "name": "Jonathan Bowers",
+    "email": "jonotron@gmail.com"
+  },
+
   "keywords": [
     "backbone",
     "moment",
     "date",
     "picker",
     "browser"
+  ]
+
+  "repository": {
+    "type": "git",
+    "url": "git://github.com//jonotron/moment.picker.git"
+  },
+
+  "bugs": {
+    "url": "https://github.com//jonotron/moment.picker/issues"
+  },
+
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com//jonotron/moment.picker/blob/master/LICENSE-MIT"
+    }
   ],
 
   "devDependencies": {
