@@ -1,5 +1,7 @@
 /*global module:false*/
 module.exports = function(grunt) {
+  
+  grunt.loadNpmTasks('grunt-jasmine-runner');
 
   // Project configuration.
   grunt.initConfig({
@@ -64,6 +66,6 @@ module.exports = function(grunt) {
   });
 
   // Default task.
-  grunt.registerTask('default', 'lint qunit concat min');
+  grunt.registerTask('default', 'lint jasmine concat min');
 
 };
