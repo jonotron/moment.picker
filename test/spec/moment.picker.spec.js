@@ -22,6 +22,28 @@ describe('moment.picker', function() {
       });
     
     });
+  });
 
+  describe('when rendering a picker', function() {
+    var picker;
+    beforeEach(function() {
+      picker = new MomentPicker({date: moment('Jan 1, 2000')}); 
+      picker.render();
+    });
+
+    it('should set the active month in the header', function() {
+      expect(picker.$('thead th.month')).toHaveText('Jan 2000');
+    });
+
+    it('should render days in the correct cell', function() {
+      // Jan 1, 2000 is a saturday
+      expect(picker.$('tbody td[data-date="2000-01-01"]')).toHaveClass('day-6');
+    });
+
+    it('should render the selected day as selected', function() {
+      expect(picker.$('tbody td[data-date="2000-01-01"]')).toHaveClass('selected');
+      expect(picker.$('tbody td[data-date="2000-01-02"]')).not.toHaveClass('selected');
+
+    });
   });
 });
