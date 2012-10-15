@@ -1,31 +1,30 @@
 ( function() {
-  var tmplHead = '<thead>'
-    + '<tr>'
-    + '<th colspan="2" class="nav prev-month"><i class="icon-arrow-left"></i></th>'
-    + '<th colspan="3" class="month"><%= month %> <%= year %></th>'
-    + '<th colspan="2" class="nav next-month"><i class="icon-arrow-right"></i></th>'
-    + '</tr>'
-    + '<tr>'
-    + '<th>' + moment.weekdaysShort[0].substring(0,2) + '</th>'
-    + '<th>' + moment.weekdaysShort[1].substring(0,2) + '</th>'
-    + '<th>' + moment.weekdaysShort[2].substring(0,2) + '</th>'
-    + '<th>' + moment.weekdaysShort[3].substring(0,2) + '</th>'
-    + '<th>' + moment.weekdaysShort[4].substring(0,2) + '</th>'
-    + '<th>' + moment.weekdaysShort[5].substring(0,2) + '</th>'
-    + '<th>' + moment.weekdaysShort[6].substring(0,2) + '</th>'
-    + '</tr>'
-    + '</thead>'
-    ;
-  var tmplRow = '<tr>'
-    + '<td class="day day-0 <%= week.day0.date ? "clickable" : "empty" %><%= week.day0.full == selected ? " selected": "" %>" data-date="<%= week.day0.full %>"><%= week.day0.date %></td>'
-    + '<td class="day day-1 <%= week.day1.date ? "clickable" : "empty" %><%= week.day1.full == selected ? " selected": "" %>" data-date="<%= week.day1.full %>"><%= week.day1.date %></td>'
-    + '<td class="day day-2 <%= week.day2.date ? "clickable" : "empty" %><%= week.day2.full == selected ? " selected": "" %>" data-date="<%= week.day2.full %>"><%= week.day2.date %></td>'
-    + '<td class="day day-3 <%= week.day3.date ? "clickable" : "empty" %><%= week.day3.full == selected ? " selected": "" %>" data-date="<%= week.day3.full %>"><%= week.day3.date %></td>'
-    + '<td class="day day-4 <%= week.day4.date ? "clickable" : "empty" %><%= week.day4.full == selected ? " selected": "" %>" data-date="<%= week.day4.full %>"><%= week.day4.date %></td>'
-    + '<td class="day day-5 <%= week.day5.date ? "clickable" : "empty" %><%= week.day5.full == selected ? " selected": "" %>" data-date="<%= week.day5.full %>"><%= week.day5.date %></td>'
-    + '<td class="day day-6 <%= week.day6.date ? "clickable" : "empty" %><%= week.day6.full == selected ? " selected": "" %>" data-date="<%= week.day6.full %>"><%= week.day6.date %></td>'
-    + '</tr>'
-    ;
+  var tmplHead = '<thead>' +
+    '<tr>' +
+    '<th colspan="2" class="nav prev-month"><i class="icon-arrow-left"></i></th>' +
+    '<th colspan="3" class="month"><%= month %> <%= year %></th>' +
+    '<th colspan="2" class="nav next-month"><i class="icon-arrow-right"></i></th>' +
+    '</tr>' +
+    '<tr>' +
+    '<th>' + moment.weekdaysShort[0].substring(0,2) + '</th>' +
+    '<th>' + moment.weekdaysShort[1].substring(0,2) + '</th>' +
+    '<th>' + moment.weekdaysShort[2].substring(0,2) + '</th>' +
+    '<th>' + moment.weekdaysShort[3].substring(0,2) + '</th>' +
+    '<th>' + moment.weekdaysShort[4].substring(0,2) + '</th>' +
+    '<th>' + moment.weekdaysShort[5].substring(0,2) + '</th>' +
+    '<th>' + moment.weekdaysShort[6].substring(0,2) + '</th>' +
+    '</tr>' +
+    '</thead>';
+
+  var tmplRow = '<tr>' +
+    '<td class="day day-0 <%= week.day0.date ? "clickable" : "empty" %><%= week.day0.full == selected ? " selected": "" %>" data-date="<%= week.day0.full %>"><%= week.day0.date %></td>' +
+    '<td class="day day-1 <%= week.day1.date ? "clickable" : "empty" %><%= week.day1.full == selected ? " selected": "" %>" data-date="<%= week.day1.full %>"><%= week.day1.date %></td>' +
+    '<td class="day day-2 <%= week.day2.date ? "clickable" : "empty" %><%= week.day2.full == selected ? " selected": "" %>" data-date="<%= week.day2.full %>"><%= week.day2.date %></td>' +
+    '<td class="day day-3 <%= week.day3.date ? "clickable" : "empty" %><%= week.day3.full == selected ? " selected": "" %>" data-date="<%= week.day3.full %>"><%= week.day3.date %></td>' +
+    '<td class="day day-4 <%= week.day4.date ? "clickable" : "empty" %><%= week.day4.full == selected ? " selected": "" %>" data-date="<%= week.day4.full %>"><%= week.day4.date %></td>' +
+    '<td class="day day-5 <%= week.day5.date ? "clickable" : "empty" %><%= week.day5.full == selected ? " selected": "" %>" data-date="<%= week.day5.full %>"><%= week.day5.date %></td>' +
+    '<td class="day day-6 <%= week.day6.date ? "clickable" : "empty" %><%= week.day6.full == selected ? " selected": "" %>" data-date="<%= week.day6.full %>"><%= week.day6.date %></td>' +
+    '</tr>';
 
   var MomentPicker = Backbone.View.extend({
     _tmplHead:    tmplHead,
