@@ -1,4 +1,5 @@
 ( function() {
+  var weekdays = moment()._lang._weekdaysMin;
   var tmplHead = '<thead>' +
     '<tr>' +
     '<th colspan="2" class="nav prev-month"><i class="icon-arrow-left"></i></th>' +
@@ -6,13 +7,13 @@
     '<th colspan="2" class="nav next-month"><i class="icon-arrow-right"></i></th>' +
     '</tr>' +
     '<tr>' +
-    '<th>' + moment.weekdaysShort[0].substring(0,2) + '</th>' +
-    '<th>' + moment.weekdaysShort[1].substring(0,2) + '</th>' +
-    '<th>' + moment.weekdaysShort[2].substring(0,2) + '</th>' +
-    '<th>' + moment.weekdaysShort[3].substring(0,2) + '</th>' +
-    '<th>' + moment.weekdaysShort[4].substring(0,2) + '</th>' +
-    '<th>' + moment.weekdaysShort[5].substring(0,2) + '</th>' +
-    '<th>' + moment.weekdaysShort[6].substring(0,2) + '</th>' +
+    '<th>' + weekdays[0] + '</th>' +
+    '<th>' + weekdays[1] + '</th>' +
+    '<th>' + weekdays[2] + '</th>' +
+    '<th>' + weekdays[3] + '</th>' +
+    '<th>' + weekdays[4] + '</th>' +
+    '<th>' + weekdays[5] + '</th>' +
+    '<th>' + weekdays[6] + '</th>' +
     '</tr>' +
     '</thead>';
 
