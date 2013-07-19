@@ -13,12 +13,12 @@ describe('moment.picker', function() {
     describe('when providing a date', function() {
       it('should select the provided date', function() {
         var picker = new MomentPicker({date: moment('Jan 1, 2000')});
-        expect(picker.getSelectedMoment()).toEqual(moment('Jan 1, 2000').startOf('day')); 
+        expect(picker.getSelectedMoment().toString()).toEqual(moment('Jan 1, 2000').startOf('day').toString()); 
       });
 
       it('should reset set the selected date to the start of the day', function() {
         var picker = new MomentPicker({date: moment('2000-01-01T12:34:00')});
-        expect(picker.getSelectedMoment()).toEqual(moment('Jan 1, 2000').startOf('day'));
+        expect(picker.getSelectedMoment().toString()).toEqual(moment('Jan 1, 2000').startOf('day').toString());
       });
     
     });
