@@ -1,6 +1,6 @@
 ( function() {
 
-  var MomentPicker = function(Backbone, moment) {
+  var MomentPickerFactory = function(Backbone, moment) {
 
     var weekdays = moment()._lang._weekdaysMin;
     var tmplHead = '<thead>' +
@@ -162,11 +162,11 @@
 
   if (typeof define === 'function' && define.amd) {
     define(['backbone', 'moment'], function(Backbone, moment) {
-      return MomentPicker(Backbone, moment); 
+      return MomentPickerFactory(Backbone, moment); 
     }); 
   } else {
     // attach to global object
-    this.MomentPicker = MomentPicker(Backbone, moment);
+    this.MomentPicker = MomentPickerFactory(Backbone, moment);
   }
 
 }).call(this);
