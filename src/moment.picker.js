@@ -1,164 +1,172 @@
 ( function() {
-  var weekdays = moment()._lang._weekdaysMin;
-  var tmplHead = '<thead>' +
-    '<tr>' +
-    '<th colspan="2" class="nav prev-month"><i class="icon-arrow-left"></i></th>' +
-    '<th colspan="3" class="month"><%= month %> <%= year %></th>' +
-    '<th colspan="2" class="nav next-month"><i class="icon-arrow-right"></i></th>' +
-    '</tr>' +
-    '<tr>' +
-    '<th>' + weekdays[0] + '</th>' +
-    '<th>' + weekdays[1] + '</th>' +
-    '<th>' + weekdays[2] + '</th>' +
-    '<th>' + weekdays[3] + '</th>' +
-    '<th>' + weekdays[4] + '</th>' +
-    '<th>' + weekdays[5] + '</th>' +
-    '<th>' + weekdays[6] + '</th>' +
-    '</tr>' +
-    '</thead>';
 
-  var tmplRow = '<tr>' +
-    '<td class="day day-0 <%= week.day0.date ? "clickable" : "empty" %><%= week.day0.full == selected ? " selected": "" %>" data-date="<%= week.day0.full %>"><%= week.day0.date %></td>' +
-    '<td class="day day-1 <%= week.day1.date ? "clickable" : "empty" %><%= week.day1.full == selected ? " selected": "" %>" data-date="<%= week.day1.full %>"><%= week.day1.date %></td>' +
-    '<td class="day day-2 <%= week.day2.date ? "clickable" : "empty" %><%= week.day2.full == selected ? " selected": "" %>" data-date="<%= week.day2.full %>"><%= week.day2.date %></td>' +
-    '<td class="day day-3 <%= week.day3.date ? "clickable" : "empty" %><%= week.day3.full == selected ? " selected": "" %>" data-date="<%= week.day3.full %>"><%= week.day3.date %></td>' +
-    '<td class="day day-4 <%= week.day4.date ? "clickable" : "empty" %><%= week.day4.full == selected ? " selected": "" %>" data-date="<%= week.day4.full %>"><%= week.day4.date %></td>' +
-    '<td class="day day-5 <%= week.day5.date ? "clickable" : "empty" %><%= week.day5.full == selected ? " selected": "" %>" data-date="<%= week.day5.full %>"><%= week.day5.date %></td>' +
-    '<td class="day day-6 <%= week.day6.date ? "clickable" : "empty" %><%= week.day6.full == selected ? " selected": "" %>" data-date="<%= week.day6.full %>"><%= week.day6.date %></td>' +
-    '</tr>';
+  var MomentPickerFactory = function(Backbone, moment) {
 
-  var MomentPicker = Backbone.View.extend({
-    _tmplHead:    tmplHead,
-    _tmplRow:     tmplRow,
-    tagName:      'table',
-    className:    'datepicker',
+    var weekdays = moment()._lang._weekdaysMin;
+    var tmplHead = '<thead>' +
+      '<tr>' +
+      '<th colspan="2" class="nav prev-month"><i class="icon-arrow-left"></i></th>' +
+      '<th colspan="3" class="month"><%= month %> <%= year %></th>' +
+      '<th colspan="2" class="nav next-month"><i class="icon-arrow-right"></i></th>' +
+      '</tr>' +
+      '<tr>' +
+      '<th>' + weekdays[0] + '</th>' +
+      '<th>' + weekdays[1] + '</th>' +
+      '<th>' + weekdays[2] + '</th>' +
+      '<th>' + weekdays[3] + '</th>' +
+      '<th>' + weekdays[4] + '</th>' +
+      '<th>' + weekdays[5] + '</th>' +
+      '<th>' + weekdays[6] + '</th>' +
+      '</tr>' +
+      '</thead>';
 
-    constructor: function(options) {
-      Backbone.View.prototype.constructor.call(this, options);
+    var tmplRow = '<tr>' +
+      '<td class="day day-0 <%= week.day0.date ? "clickable" : "empty" %><%= week.day0.full == selected ? " selected": "" %>" data-date="<%= week.day0.full %>"><%= week.day0.date %></td>' +
+      '<td class="day day-1 <%= week.day1.date ? "clickable" : "empty" %><%= week.day1.full == selected ? " selected": "" %>" data-date="<%= week.day1.full %>"><%= week.day1.date %></td>' +
+      '<td class="day day-2 <%= week.day2.date ? "clickable" : "empty" %><%= week.day2.full == selected ? " selected": "" %>" data-date="<%= week.day2.full %>"><%= week.day2.date %></td>' +
+      '<td class="day day-3 <%= week.day3.date ? "clickable" : "empty" %><%= week.day3.full == selected ? " selected": "" %>" data-date="<%= week.day3.full %>"><%= week.day3.date %></td>' +
+      '<td class="day day-4 <%= week.day4.date ? "clickable" : "empty" %><%= week.day4.full == selected ? " selected": "" %>" data-date="<%= week.day4.full %>"><%= week.day4.date %></td>' +
+      '<td class="day day-5 <%= week.day5.date ? "clickable" : "empty" %><%= week.day5.full == selected ? " selected": "" %>" data-date="<%= week.day5.full %>"><%= week.day5.date %></td>' +
+      '<td class="day day-6 <%= week.day6.date ? "clickable" : "empty" %><%= week.day6.full == selected ? " selected": "" %>" data-date="<%= week.day6.full %>"><%= week.day6.date %></td>' +
+      '</tr>';
 
-      this._initialize(options);
-    },
+    var MomentPicker = Backbone.View.extend({
+      _tmplHead:    tmplHead,
+      _tmplRow:     tmplRow,
+      tagName:      'table',
+      className:    'datepicker',
 
-    /**
-     * Private initializer
-     */
-    _initialize: function(options) {
-      if (options && _.has(options, 'date')) {
-        this.updateSelectedMoment(options.date);
-      } else {
-        this.updateSelectedMoment(moment().startOf('day'));
-      }
-    },
+      constructor: function(options) {
+        Backbone.View.prototype.constructor.call(this, options);
 
-    render: function() {
-      this.$el.html(_.template(this._tmplHead, {
-        month: moment((this._activeMoment.month()+1).toString(), 'M').format('MMM'),
-        year: this._activeMoment.format("YYYY")
-      }));
+        this._initialize(options);
+      },
 
-      var self = this;
-      _.each(this.getActiveWeeks(this._activeMoment), function(week) {
-        self.$el.append(_.template(self._tmplRow, {
-          week: week,
-          selected: self._selectedMoment.format('YYYY-MM-DD')
+      /**
+       * Private initializer
+       */
+      _initialize: function(options) {
+        if (options && _.has(options, 'date')) {
+          this.updateSelectedMoment(options.date);
+        } else {
+          this.updateSelectedMoment(moment().startOf('day'));
+        }
+      },
+
+      render: function() {
+        this.$el.html(_.template(this._tmplHead, {
+          month: moment((this._activeMoment.month()+1).toString(), 'M').format('MMM'),
+          year: this._activeMoment.format("YYYY")
         }));
-      });
 
-      return this;
-    },
+        var self = this;
+        _.each(this.getActiveWeeks(this._activeMoment), function(week) {
+          self.$el.append(_.template(self._tmplRow, {
+            week: week,
+            selected: self._selectedMoment.format('YYYY-MM-DD')
+          }));
+        });
 
-    getActiveWeeks: function(date) {
-      var daysInActiveMonth = _.range(1, date.clone().date(1).daysInMonth() + 1); // daysInMonth is buggy in current Moment version and returns wrong number when using end of certain months (e.g. May 31, 2012). TODO: reeval when fixed upstream
+        return this;
+      },
 
-      var y = date.year();
-      var m = date.month();
-      var weeksInActiveMonth = _.chain(daysInActiveMonth)
-        .map(function(d) { // group by the week of the year
-          var mom = moment([y, m, d]);
-          return {
-            date: d,
-            day: mom.day(),
-            yearweek: mom.format('YYYY') + '-' + mom.format('w'), // year-week to deal with january
-            month: m,
-            year: y,
-            full: mom.format('YYYY-MM-DD')
-          };
-        })
-        .groupBy('yearweek')
-        .map(function(w) { // rekey each date in the week to day
-          var reKeyed = {};
-          // create an empty object with a dayX property for each day of the week
-          _.each(_.range(7), function(d) {
-            reKeyed['day' + d] = {};
-          });
-          _.each(w, function(d) {
-            reKeyed['day' + d.day] = d;
-          });
+      getActiveWeeks: function(date) {
+        var daysInActiveMonth = _.range(1, date.clone().date(1).daysInMonth() + 1); // daysInMonth is buggy in current Moment version and returns wrong number when using end of certain months (e.g. May 31, 2012). TODO: reeval when fixed upstream
 
-          return reKeyed;
-        })
-        .value();
+        var y = date.year();
+        var m = date.month();
+        var weeksInActiveMonth = _.chain(daysInActiveMonth)
+          .map(function(d) { // group by the week of the year
+            var mom = moment([y, m, d]);
+            return {
+              date: d,
+              day: mom.day(),
+              yearweek: mom.format('YYYY') + '-' + mom.format('w'), // year-week to deal with january
+              month: m,
+              year: y,
+              full: mom.format('YYYY-MM-DD')
+            };
+          })
+          .groupBy('yearweek')
+          .map(function(w) { // rekey each date in the week to day
+            var reKeyed = {};
+            // create an empty object with a dayX property for each day of the week
+            _.each(_.range(7), function(d) {
+              reKeyed['day' + d] = {};
+            });
+            _.each(w, function(d) {
+              reKeyed['day' + d.day] = d;
+            });
 
-      return weeksInActiveMonth;
-    },
+            return reKeyed;
+          })
+          .value();
 
-    events: {
-      'click td.day.clickable': 'clickDay',
-      'click th.prev-month': 'prevMonth',
-      'click th.next-month': 'nextMonth'
-    },
+        return weeksInActiveMonth;
+      },
 
-    clickDay: function(e) {
-      e.preventDefault();
+      events: {
+        'click td.day.clickable': 'clickDay',
+        'click th.prev-month': 'prevMonth',
+        'click th.next-month': 'nextMonth'
+      },
 
-      this._setSelectedMoment(moment($(e.target).data('date')));
-    },
+      clickDay: function(e) {
+        e.preventDefault();
 
-    prevMonth: function(e) {
-      this._activeMoment.subtract('months', 1);
-      this.render();
-    },
+        this._setSelectedMoment(moment($(e.target).data('date')));
+      },
 
-    nextMonth: function(e) {
-      this._activeMoment.add('months', 1);
-      this.render();
-    },
-
-    _setSelectedMoment: function(mom, silent) {
-      silent = ( silent !== undefined ) ? silent : false; // default silent false
-
-      this._selectedMoment = mom;
-      this.$('td.day.selected').removeClass('selected');
-      this.$('td.day[data-date="' + mom.format('YYYY-MM-DD') + '"]').addClass('selected');
-      if (!silent)
-        this.trigger('selected', { moment: mom, date: mom.format('MMM D, YYYY')});
-    },
-
-    updateSelectedMoment: function(date) {
-      var mom = moment(date);
-      if (!isNaN(mom._d.getTime())) { // check for valid date. TODO: Use upcoming moment.js isValid function
-        mom.startOf('day');
-        this._setSelectedMoment(mom);
-        this._activeMoment = mom.clone();
+      prevMonth: function(e) {
+        this._activeMoment.subtract('months', 1);
         this.render();
-        return mom;
-      } else {
-        return false;
+      },
+
+      nextMonth: function(e) {
+        this._activeMoment.add('months', 1);
+        this.render();
+      },
+
+      _setSelectedMoment: function(mom, silent) {
+        silent = ( silent !== undefined ) ? silent : false; // default silent false
+
+        this._selectedMoment = mom;
+        this.$('td.day.selected').removeClass('selected');
+        this.$('td.day[data-date="' + mom.format('YYYY-MM-DD') + '"]').addClass('selected');
+        if (!silent)
+          this.trigger('selected', { moment: mom, date: mom.format('MMM D, YYYY')});
+      },
+
+      updateSelectedMoment: function(date) {
+        var mom = moment(date);
+        if (!isNaN(mom._d.getTime())) { // check for valid date. TODO: Use upcoming moment.js isValid function
+          mom.startOf('day');
+          this._setSelectedMoment(mom);
+          this._activeMoment = mom.clone();
+          this.render();
+          return mom;
+        } else {
+          return false;
+        }
+      },
+
+      getSelectedMoment: function() {
+        return this._selectedMoment;
       }
-    },
 
-    getSelectedMoment: function() {
-      return this._selectedMoment;
-    }
+    });
 
-  });
+    return MomentPicker;
 
-  // attach to global object
-  this.MomentPicker = MomentPicker;
+  };
 
   if (typeof define === 'function' && define.amd) {
     define(['backbone', 'moment'], function(Backbone, moment) {
-      return MomentPicker; 
+      return MomentPickerFactory(Backbone, moment); 
     }); 
+  } else {
+    // attach to global object
+    this.MomentPicker = MomentPickerFactory(Backbone, moment);
   }
+
 }).call(this);
