@@ -137,11 +137,11 @@
           this.trigger('selected', { moment: mom, date: mom.format('MMM D, YYYY')});
       },
 
-      updateSelectedMoment: function(date) {
+      updateSelectedMoment: function(date, silent) {
         var mom = moment(date);
         if (!isNaN(mom._d.getTime())) { // check for valid date. TODO: Use upcoming moment.js isValid function
           mom.startOf('day');
-          this._setSelectedMoment(mom);
+          this._setSelectedMoment(mom, silent);
           this._activeMoment = mom.clone();
           this.render();
           return mom;
