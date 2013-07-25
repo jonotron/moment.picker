@@ -1,24 +1,14 @@
 # jQuery Moment Picker
 
-A backbone + moment.js date picker
+A backbone + moment.js date picker.
 
-## Getting Started
-Download the [production version][min] or the [development version][max].
+## Why another date picker?
 
-[min]: https://raw.github.com/jonotron/jquery.moment.picker/master/dist/jquery.moment.picker.min.js
-[max]: https://raw.github.com/jonotron/jquery.moment.picker/master/dist/jquery.moment.picker.js
+I wanted a date picker that did not make too many UI assumptions (forcing you to use a popover/popunder), but did make some assumptions about the environment it was used in (backbone view with events, returning moments).
 
-In your web page:
+It tries to be as small as possible, and use libraries that you are already using.
 
-```html
-<script src="jquery.js"></script>
-<script src="dist/jquery.moment.picker.min.js"></script>
-<script>
-jQuery(function($) {
-  $.awesome(); // "awesome"
-});
-</script>
-```
+It is suitable to be placed on a screen as is so as to be easily touched (on touch devices)
 
 ## Documentation
 _(Coming soon)_
