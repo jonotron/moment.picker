@@ -2,7 +2,7 @@
   "name": "moment.picker",
   "title": "Moment Picker",
   "description": "A backbone + moment.js date picker",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "homepage": "https://github.com//jonotron/moment.picker",
   "author": {
     "name": "Jonathan Bowers",

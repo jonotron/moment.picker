@@ -5,9 +5,9 @@
     var weekdays = moment()._lang._weekdaysMin;
     var tmplHead = '<thead>' +
       '<tr>' +
-      '<th colspan="2" class="nav prev-month"><i class="icon-arrow-left"></i></th>' +
+      '<th colspan="2" class="nav prev-month"><i class="fa fa-arrow-left icon-arrow-left"></i></th>' +
       '<th colspan="3" class="month"><%= month %> <%= year %></th>' +
-      '<th colspan="2" class="nav next-month"><i class="icon-arrow-right"></i></th>' +
+      '<th colspan="2" class="nav next-month"><i class="fa fa-arrow-right icon-arrow-right"></i></th>' +
       '</tr>' +
       '<tr>' +
       '<th>' + weekdays[0] + '</th>' +
